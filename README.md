@@ -1,8 +1,6 @@
 # dwme
 My custom dwm edition
 
-
-# dwm
 dwm - dynamic window manager
 ============================
 dwm is an extremely fast, small, and dynamic window manager for X.
