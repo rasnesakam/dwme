@@ -1,0 +1,6 @@
+[submodule "ext/dmenu"]
+	path = ext/dmenu
+	url = https://github.com/rasnesakam/dmenu.git
+[submodule "ext/ste"]
+	path = ext/ste
+	url = https://github.com/rasnesakam/ste.git
