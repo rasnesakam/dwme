@@ -6,7 +6,10 @@ include config.mk
 SRC = drw.c dwm.c util.c
 OBJ = ${SRC:.c=.o}
 
-all: options dwm
+INCLUDES = include/dmenu include/ste
+DEPENDENTS $(DESTDIR)$(PREFIX)/bin/st $(DESTDIR)$(PREFIX)/bin/dmenu
+
+all: options $(INCLUDES) ${NAME}
 
 options:
 	@echo dwm build options:
@@ -19,11 +22,20 @@ options:
 
 ${OBJ}: config.h config.mk
 
+${DEPENDENTS}: ${INCLUDES}
+
+${INCLUDES}: sync-modules
+	make -C $@ clean install
+
 config.h:
 	cp config.def.h $@
 
 dwm: ${OBJ}
 	${CC} -o $@ ${OBJ} ${LDFLAGS}
+
+sync-modules: 
+	git submodule init
+	git submodule update
 
 clean:
 	rm -f dwm ${OBJ} dwm-${VERSION}.tar.gz
@@ -36,7 +48,7 @@ dist: clean
 	gzip dwm-${VERSION}.tar
 	rm -rf dwm-${VERSION}
 
-install: all
+install: ${DEPENDENTS} all
 	mkdir -p ${DESTDIR}${PREFIX}/bin
 	cp -f dwm ${DESTDIR}${PREFIX}/bin
 	chmod 755 ${DESTDIR}${PREFIX}/bin/dwm
