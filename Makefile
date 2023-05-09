@@ -3,7 +3,7 @@
 
 include config.mk
 
-NAME = dwme
+NAME = dwm
 SRC  = drw.c dwm.c util.c
 OBJ  = ${SRC:.c=.o}
 
