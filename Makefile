@@ -38,6 +38,9 @@ sync-modules:
 	git submodule init
 	git submodule update
 
+push-xsession:
+	cp ./dwme.desktop /usr/share/xsessions/dwme.desktop
+
 clean:
 	rm -f dwm ${OBJ} dwm-${VERSION}.tar.gz
 
@@ -61,4 +64,4 @@ uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/dwm\
 		${DESTDIR}${MANPREFIX}/man1/dwm.1
 
-.PHONY: all options clean dist install uninstall sync-modules
+.PHONY: all options clean dist install uninstall sync-modules push-xsession
