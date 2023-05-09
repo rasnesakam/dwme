@@ -8,7 +8,7 @@ SRC  = drw.c dwm.c util.c
 OBJ  = ${SRC:.c=.o}
 
 INCLUDES = include/dmenu include/ste
-DEPENDENTS $(DESTDIR)$(PREFIX)/bin/st $(DESTDIR)$(PREFIX)/bin/dmenu
+DEPENDENTS = $(DESTDIR)$(PREFIX)/bin/st $(DESTDIR)$(PREFIX)/bin/dmenu
 
 all: options $(INCLUDES) ${NAME}
 
