@@ -1,10 +1,11 @@
-# dwm - dynamic window manager
+# dwme - dynamic window manager
 # See LICENSE file for copyright and license details.
 
 include config.mk
 
-SRC = drw.c dwm.c util.c
-OBJ = ${SRC:.c=.o}
+NAME = dwme
+SRC  = drw.c dwm.c util.c
+OBJ  = ${SRC:.c=.o}
 
 INCLUDES = include/dmenu include/ste
 DEPENDENTS $(DESTDIR)$(PREFIX)/bin/st $(DESTDIR)$(PREFIX)/bin/dmenu
@@ -30,7 +31,7 @@ ${INCLUDES}: sync-modules
 config.h:
 	cp config.def.h $@
 
-dwm: ${OBJ}
+${NAME}: ${OBJ}
 	${CC} -o $@ ${OBJ} ${LDFLAGS}
 
 sync-modules: 
