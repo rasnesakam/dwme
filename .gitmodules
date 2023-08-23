@@ -1,0 +1,6 @@
+[submodule "include/dmenu"]
+	path = include/dmenu
+	url = https://github.com/rasnesakam/dmenu.git
+[submodule "include/ste"]
+	path = include/ste
+	url = https://github.com/rasnesakam/ste.git
