@@ -1,12 +1,16 @@
-# dwm - dynamic window manager
+# dwme - dynamic window manager
 # See LICENSE file for copyright and license details.
 
 include config.mk
 
-SRC = drw.c dwm.c util.c
-OBJ = ${SRC:.c=.o}
+NAME = dwm
+SRC  = drw.c dwm.c util.c
+OBJ  = ${SRC:.c=.o}
 
-all: options dwm
+INCLUDES = include/dmenu include/ste
+DEPENDENTS = $(DESTDIR)$(PREFIX)/bin/st $(DESTDIR)$(PREFIX)/bin/dmenu
+
+all: options $(INCLUDES) ${NAME}
 
 options:
 	@echo dwm build options:
@@ -19,11 +23,23 @@ options:
 
 ${OBJ}: config.h config.mk
 
+${DEPENDENTS}: ${INCLUDES}
+
+${INCLUDES}: sync-modules
+	make -C $@ clean install
+
 config.h:
 	cp config.def.h $@
 
-dwm: ${OBJ}
+${NAME}: ${OBJ}
 	${CC} -o $@ ${OBJ} ${LDFLAGS}
+
+sync-modules: 
+	git submodule init
+	git submodule update
+
+push-xsession:
+	cp ./dwme.desktop /usr/share/xsessions/dwme.desktop
 
 clean:
 	rm -f dwm ${OBJ} dwm-${VERSION}.tar.gz
@@ -36,7 +52,7 @@ dist: clean
 	gzip dwm-${VERSION}.tar
 	rm -rf dwm-${VERSION}
 
-install: all
+install: ${DEPENDENTS} all
 	mkdir -p ${DESTDIR}${PREFIX}/bin
 	cp -f dwm ${DESTDIR}${PREFIX}/bin
 	chmod 755 ${DESTDIR}${PREFIX}/bin/dwm
@@ -48,4 +64,4 @@ uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/dwm\
 		${DESTDIR}${MANPREFIX}/man1/dwm.1
 
-.PHONY: all options clean dist install uninstall
+.PHONY: all options clean dist install uninstall sync-modules push-xsession
