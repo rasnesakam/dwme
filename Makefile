@@ -7,7 +7,7 @@ NAME = dwm
 SRC  = drw.c dwm.c util.c
 OBJ  = ${SRC:.c=.o}
 
-INCLUDES = include/dmenu include/ste
+INCLUDES = ext/dmenu ext/ste
 DEPENDENTS = $(DESTDIR)$(PREFIX)/bin/st $(DESTDIR)$(PREFIX)/bin/dmenu
 
 all: options $(INCLUDES) ${NAME}
